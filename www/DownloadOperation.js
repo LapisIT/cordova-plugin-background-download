@@ -43,7 +43,7 @@ var DownloadOperation = function (uri, resultFile, uriMatcher) {
 /**
  * Starts an asynchronous download operation.
  */
-DownloadOperation.prototype.startAsync = function() {
+DownloadOperation.prototype.startAsync = function(options) {
 
     var deferral = new Promise.Deferral(),
         me = this,
@@ -61,8 +61,13 @@ DownloadOperation.prototype.startAsync = function() {
         errorCallback = function(err) {
             deferral.reject(err);
         };
-
-    exec(successCallback, errorCallback, "BackgroundDownload", "startAsync", [this.uri, this.resultFile.toURL(), this.uriMatcher]);
+    
+    var title = "Downloading File";
+    if( typeof options === 'object' && options.title ) {
+        title = options.title;
+    }
+    
+    exec(successCallback, errorCallback, "BackgroundDownload", "startAsync", [this.uri, this.resultFile.toURL(), this.uriMatcher, title]);
 
     // custom mechanism to trigger stop when user cancels pending operation
     deferral.promise.onCancelled = function () {
