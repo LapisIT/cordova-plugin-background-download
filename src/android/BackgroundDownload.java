@@ -217,7 +217,7 @@ public class BackgroundDownload extends CordovaPlugin {
         Download curDownload = new Download(args.get(0).toString(), args.get(1).toString(), 
                 args.length() > 2 && !"null".equals(args.getString(2)) ? args.getString(2) : null, 
                 callbackContext);
-
+        String title = args.get(2).toString();
         if (activeDownloads.containsKey(curDownload.getUriString())) {
             return;
         }
@@ -234,7 +234,7 @@ public class BackgroundDownload extends CordovaPlugin {
 
                 DownloadManager mgr = getDownloadManager();
                 DownloadManager.Request request = new DownloadManager.Request(source);
-                request.setTitle("org.apache.cordova.backgroundDownload plugin");
+                request.setTitle(title);
                 request.setVisibleInDownloadsUi(false);
 
                 // hide notification. Not compatible with current android api.
