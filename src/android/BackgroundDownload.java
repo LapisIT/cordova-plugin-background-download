@@ -217,7 +217,7 @@ public class BackgroundDownload extends CordovaPlugin {
         Download curDownload = new Download(args.get(0).toString(), args.get(1).toString(), 
                 args.length() > 2 && !"null".equals(args.getString(2)) ? args.getString(2) : null, 
                 callbackContext);
-        String title = args.get(2).toString();
+        String title = args.get(3).toString();
         if (activeDownloads.containsKey(curDownload.getUriString())) {
             return;
         }
